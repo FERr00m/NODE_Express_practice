@@ -1,8 +1,9 @@
 extends layout
 
 block layout-content
-  h1 Добро пожаловать в Meadowlark Travel
-  if randomText
-    p #{randomText}
-  else
-    p Error
+  .container
+    h1 Добро пожаловать в Meadowlark Travel
+    if randomText
+      blockquote #{randomText}
+    else
+      p Error
