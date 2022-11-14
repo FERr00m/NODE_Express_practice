@@ -1,0 +1,61 @@
+extends ../layouts/layout
+
+block layout-content
+  .container
+    h2 Vacation Photo Contest
+    .row
+      #vacationPhotoContestFormContainer
+        form#vacationPhotoContestForm.col.s12(role='form' enctype='multipart/form-data' method='POST' action=`/contest/vacation-photo/${year}/${month}`)
+          input(type='hidden' name='_csrf' value=`${csrf}`)
+          .row
+            .input-field.col.s12
+              input#first_name.validate(placeholder='Placeholder' type='text' name='name')
+              label(for='first_name') First Name
+          .row
+            .input-field.col.s12
+              input#email.validate(type='email' name='email')
+              label(for='email') Email
+              span.helper-text(data-error='wrong' data-success='right') Helper text
+          .row
+            .file-field.input-field
+              .btn
+                span File
+                input(type='file' multiple='' accept='image/*' name='photo')
+              .file-path-wrapper
+                input.file-path.validate(type='text' placeholder="Upload one or more files" )
+          button.btn.waves-effect.waves-light(type='submit')
+            | Submit
+            i.material-icons.right send
+    script.
+      const vacationPhotoContestForm = document.getElementById("vacationPhotoContestForm");
+
+      if (vacationPhotoContestForm) {
+        const now = new Date();
+        const year = now.getFullYear()
+        const month = now.getMonth()
+
+        vacationPhotoContestForm.addEventListener("submit", (evt) => {
+          evt.preventDefault();
+          const body = new FormData(evt.target);
+          const container = document.getElementById(
+            "vacationPhotoContestFormContainer"
+          );
+          fetch(`/api/vacation-photo-contest/${year}/${month}`, {
+            method: "post",
+            body,
+          })
+            .then((resp) => {
+              if (resp.status < 200 || resp.status >= 300)
+                throw new Error(`Request failed with status ${resp.status}`);
+              return resp.json();
+            })
+            .then((json) => {
+              container.innerHTML = "<b>Thank you for submitting your photo!</b>";
+            })
+            .catch((err) => {
+              container.innerHTML =
+                `<b>We're sorry, we had a problem processing ` +
+                `your submission.  Please <a href="/newsletter">try again</a>`;
+            });
+        });
+      }

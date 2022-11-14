@@ -5,6 +5,7 @@ html(lang="en")
     meta(http-equiv="X-UA-Compatible", content="IE=edge")
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
     link(rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css')
+    link(rel='stylesheet' href='https://fonts.googleapis.com/icon?family=Material+Icons')
     script(src='https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js' defer)
 
 
@@ -12,11 +13,17 @@ html(lang="en")
   body
     header
       .container
-        img(src="/img/techno2.png", alt="logo" width="250" height="100")
         nav
           ul
             li
               a(href="/") Home
             li
-              a(href="/about") About
+              a(href="/about/") About
+            li
+              a(href="/headers/") Headers
+            li
+              a(href="/newsletter/") News Letter
+            li
+              a(href="/contest/vacation-photo-ajax/") Upload photo
     block layout-content
+    include ../components/scripts

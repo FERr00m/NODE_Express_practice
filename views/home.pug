@@ -1,9 +1,6 @@
-extends layout
+extends layouts/layout
 
 block layout-content
   .container
     h1 Добро пожаловать в Meadowlark Travel
-    if randomText
-      blockquote #{randomText}
-    else
-      p Error
+    //- include partials/weather

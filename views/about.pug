@@ -1,5 +1,9 @@
-extends layout
+extends layouts/layout
 
 block layout-content
   .container
     h1 О Meadowlark Travel
+    if randomText
+      blockquote #{randomText}
+    else
+      p Error
