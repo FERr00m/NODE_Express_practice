@@ -26,36 +26,37 @@ block layout-content
           button.btn.waves-effect.waves-light(type='submit')
             | Submit
             i.material-icons.right send
-    script.
-      const vacationPhotoContestForm = document.getElementById("vacationPhotoContestForm");
+block append scripts
+  script.
+    const vacationPhotoContestForm = document.getElementById("vacationPhotoContestForm");
 
-      if (vacationPhotoContestForm) {
-        const now = new Date();
-        const year = now.getFullYear()
-        const month = now.getMonth()
+    if (vacationPhotoContestForm) {
+      const now = new Date();
+      const year = now.getFullYear()
+      const month = now.getMonth()
 
-        vacationPhotoContestForm.addEventListener("submit", (evt) => {
-          evt.preventDefault();
-          const body = new FormData(evt.target);
-          const container = document.getElementById(
-            "vacationPhotoContestFormContainer"
-          );
-          fetch(`/api/vacation-photo-contest/${year}/${month}`, {
-            method: "post",
-            body,
+      vacationPhotoContestForm.addEventListener("submit", (evt) => {
+        evt.preventDefault();
+        const body = new FormData(evt.target);
+        const container = document.getElementById(
+          "vacationPhotoContestFormContainer"
+        );
+        fetch(`/api/vacation-photo-contest/${year}/${month}`, {
+          method: "post",
+          body,
+        })
+          .then((resp) => {
+            if (resp.status < 200 || resp.status >= 300)
+              throw new Error(`Request failed with status ${resp.status}`);
+            return resp.json();
           })
-            .then((resp) => {
-              if (resp.status < 200 || resp.status >= 300)
-                throw new Error(`Request failed with status ${resp.status}`);
-              return resp.json();
-            })
-            .then((json) => {
-              container.innerHTML = "<b>Thank you for submitting your photo!</b>";
-            })
-            .catch((err) => {
-              container.innerHTML =
-                `<b>We're sorry, we had a problem processing ` +
-                `your submission.  Please <a href="/newsletter">try again</a>`;
-            });
-        });
-      }
+          .then((json) => {
+            container.innerHTML = "<b>Thank you for submitting your photo!</b>";
+          })
+          .catch((err) => {
+            container.innerHTML =
+              `<b>We're sorry, we had a problem processing ` +
+              `your submission.  Please <a href="/newsletter">try again</a>`;
+          });
+      });
+    }

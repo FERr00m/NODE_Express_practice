@@ -8,7 +8,11 @@ html(lang="en")
     link(rel='stylesheet' href='https://fonts.googleapis.com/icon?family=Material+Icons')
     script(src='https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js' defer)
 
-
+    block styles
+      style.
+        body {
+          background-color: #fff9d0;
+        }
     title #{title} | Meadowlark Travel
   body
     header
@@ -25,5 +29,9 @@ html(lang="en")
               a(href="/newsletter/") News Letter
             li
               a(href="/contest/vacation-photo-ajax/") Upload photo
+        if locals.flash
+          a.btn(onclick="M.toast({html: 'I am a toast'})") #{locals.flash.message}
+        else
+          b ssss
     block layout-content
-    include ../components/scripts
+    block scripts
