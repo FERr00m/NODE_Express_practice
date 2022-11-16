@@ -1,7 +1,10 @@
 const express = require("express");
 const path = require("path");
 const bodyParser = require("body-parser");
+
+//производят парсинг тела запроса, закодированного с помощью multipart/form-data.
 const multiparty = require("multiparty");
+
 const cookieParser = require("cookie-parser");
 const expressSession = require("express-session");
 
@@ -18,7 +21,7 @@ app.disable("x-powered-by");
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "pug");
 
-// Это необходимо, чтобы парсить веб-формы
+// производит парсинг тела HTTP-запроса. Это необходимо, чтобы парсить например веб-формы
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
