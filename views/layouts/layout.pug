@@ -29,9 +29,10 @@ html(lang="en")
               a(href="/newsletter/") News Letter
             li
               a(href="/contest/vacation-photo-ajax/") Upload photo
+            li
+              a(href="/cart/checkout") Cart Checkout Message
         if locals.flash
           a.btn(onclick="M.toast({html: 'I am a toast'})") #{locals.flash.message}
-        else
-          b ssss
+
     block layout-content
     block scripts

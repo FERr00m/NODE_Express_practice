@@ -68,6 +68,8 @@ app.post("/api/vacation-photo-contest/:year/:month", (req, res) => {
   });
 });
 
+app.get("/cart/checkout", handlers.cartChekout);
+
 // custom 404 page
 app.use(handlers.notFound);
 
