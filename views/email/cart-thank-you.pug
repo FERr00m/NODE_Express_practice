@@ -1,19 +1,30 @@
 doctype html
 head
-  meta(http-equiv='Content-Type' content='text/html; charset=utf-8')
-  meta(name='viewport' content='width=device-width, initial-scale=1.0')
+  meta(http-equiv='Content-Type', content='text/html; charset=utf-8')
+  meta(name='viewport', content='width=device-width, initial-scale=1.0')
   title Your Message Subject or Title
 
 body
-  table#backgroundTable(cellpadding='0' cellspacing='0' border='0' style="border: 1px solid black")
+  table#backgroundTable(
+    cellpadding='0',
+    cellspacing='0',
+    border='0',
+    style='border: 1px solid black'
+  )
     tr
       td(valign='top')
-        table(cellpadding='0' cellspacing='0' border='0' align='center')
+        table(cellpadding='0', cellspacing='0', border='0', align='center')
           tr
-            td(width='200' valign='top')
-              img.image_fix(src='//placehold.it/100x100' alt='Meadowlark Travel' title='Meadowlark Travel' width='180' height='220')
+            td(width='200', valign='top')
+              img.image_fix(
+                src='//placehold.it/100x100',
+                alt='Meadowlark Travel',
+                title='Meadowlark Travel',
+                width='180',
+                height='220'
+              )
           tr
-            td(width='200' valign='top')
+            td(width='200', valign='top')
               p
                 | Thank you for booking your trip with Meadowlark Travel,
                 | Alex.
@@ -21,7 +32,7 @@ body
                 | Your reservation number
                 | is 6900478195626456.
           tr
-            td(width='200' valign='top')
+            td(width='200', valign='top')
               | Problems with your reservation?
               | Contact Meadowlark Travel at
               span.mobile_link

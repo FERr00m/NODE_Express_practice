@@ -1,6 +1,6 @@
-const nodemailer = require("nodemailer");
-const { credentials } = require("./config");
-const htmlToFormattedText = require("html-to-formatted-text");
+const nodemailer = require('nodemailer');
+const { credentials } = require('./config');
+const htmlToFormattedText = require('html-to-formatted-text');
 
 async function go(to, subject, html) {
   try {
@@ -11,16 +11,16 @@ async function go(to, subject, html) {
       html,
       text: htmlToFormattedText(html),
     });
-    console.log("Письмо успешно: ", result);
-    return "OK! Message sended";
+    console.log('Письмо успешно: ', result);
+    return 'OK! Message sended';
   } catch (err) {
-    console.log("! Невохможно отправить письмо: " + err.message);
-    return "ERROR! Message NOT sended";
+    console.log('! Невохможно отправить письмо: ' + err.message);
+    return 'ERROR! Message NOT sended';
   }
 }
 
 const mailTransport = nodemailer.createTransport({
-  host: "smtp.mail.ru",
+  host: 'smtp.mail.ru',
   port: 465,
   secure: true, // use TLS
   auth: {

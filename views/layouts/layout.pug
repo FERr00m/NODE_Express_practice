@@ -1,38 +1,49 @@
 doctype html
-html(lang="en")
+html(lang='en')
   head
-    meta(charset="UTF-8")
-    meta(http-equiv="X-UA-Compatible", content="IE=edge")
-    meta(name="viewport", content="width=device-width, initial-scale=1.0")
-    link(rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css')
-    link(rel='stylesheet' href='https://fonts.googleapis.com/icon?family=Material+Icons')
-    script(src='https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js' defer)
+    meta(charset='UTF-8')
+    meta(http-equiv='X-UA-Compatible', content='IE=edge')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    link(
+      rel='stylesheet',
+      href='https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css'
+    )
+    link(
+      rel='stylesheet',
+      href='https://fonts.googleapis.com/icon?family=Material+Icons'
+    )
+    script(
+      src='https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js',
+      defer
+    )
 
     block styles
       style.
         body {
           background-color: #fff9d0;
         }
-    title #{title} | Meadowlark Travel
+    title #{ title } | Meadowlark Travel
   body
     header
       .container
         nav
           ul
             li
-              a(href="/") Home
+              a(href='/') Home
             li
-              a(href="/about/") About
+              a(href='/about/') About
             li
-              a(href="/headers/") Headers
+              a(href='/headers/') Headers
             li
-              a(href="/newsletter/") News Letter
+              a(href='/newsletter/') News Letter
             li
-              a(href="/contest/vacation-photo-ajax/") Upload photo
+              a(href='/contest/vacation-photo-ajax/') Upload photo
             li
-              a(href="/cart/checkout") Cart Checkout Message
+              a(href='/cart/checkout') Cart Checkout Message
+            li
+              a(href='/vacations') Vacations
         if locals.flash
-          a.btn(onclick="M.toast({html: 'I am a toast'})") #{locals.flash.message}
+          a.btn(onclick='M.toast({html: \'I am a toast\'})') #{ locals.flash.message }
 
     block layout-content
     block scripts

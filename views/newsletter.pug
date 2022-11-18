@@ -6,49 +6,47 @@ block layout-content
     .row
       #newsletterSignupFormContainer
         form#newsletterSignupForm.col.s12(role='form')
-          input(type='hidden' name='_csrf' value=`${csrf}`)
+          input(type='hidden', name='_csrf', value=`${csrf}`)
           .row
             .input-field.col.s12
-              input#first_name.validate(placeholder='Placeholder' type='text' name='name')
+              input#first_name.validate(
+                placeholder='Placeholder',
+                type='text',
+                name='name'
+              )
               label(for='first_name') First Name
           .row
             .input-field.col.s12
-              input#email.validate(type='email' name='email')
+              input#email.validate(type='email', name='email')
               label(for='email') Email
-              span.helper-text(data-error='wrong' data-success='right') Helper text
+              span.helper-text(data-error='wrong', data-success='right') Helper text
           button.btn.waves-effect.waves-light(type='submit')
             | Submit
             i.material-icons.right send
 block append scripts
   script.
-    let newsletterSingupForm = document.getElementById("newsletterSignupForm");
+    let newsletterSingupForm = document.getElementById('newsletterSignupForm');
 
     if (newsletterSingupForm) {
-      newsletterSingupForm.addEventListener("submit", (evt) => {
-
+      newsletterSingupForm.addEventListener('submit', (evt) => {
         const form = evt.target;
         const body = JSON.stringify({
           _csrf: form.elements._csrf.value,
           name: form.elements.name.value,
           email: form.elements.email.value,
         });
-        const headers = { "Content-Type": "application/json" };
-        const container = document.getElementById(
-          "newsletterSignupFormContainer"
-        );
-        fetch("/api/newsletter-signup", { method: "post", body, headers })
+        const headers = { 'Content-Type': 'application/json' };
+        const container = document.getElementById('newsletterSignupFormContainer');
+        fetch('/api/newsletter-signup', { method: 'post', body, headers })
           .then((resp) => {
-            if (resp.status < 200 || resp.status >= 300)
-              throw new Error(`Request failed with status ${resp.status}`);
+            if (resp.status < 200 || resp.status >= 300) throw new Error(`Request failed with status ${resp.status}`);
             return resp.json();
           })
           .then((json) => {
-            container.innerHTML = "<b>Thank you for signing up!</b>";
+            container.innerHTML = '<b>Thank you for signing up!</b>';
           })
           .catch((err) => {
-            container.innerHTML =
-              `<b>We're sorry, we had a problem ` +
-              `signing you up.  Please <a href="/newsletter">try again</a>`;
+            container.innerHTML = `<b>We're sorry, we had a problem ` + `signing you up.  Please <a href="/newsletter">try again</a>`;
           });
       });
     }

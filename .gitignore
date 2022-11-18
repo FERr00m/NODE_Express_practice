@@ -3,3 +3,5 @@ package-lock.json
 .credentials*
 .idea
 .vscode
+var/log/
+data

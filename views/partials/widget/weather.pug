@@ -1,4 +1,3 @@
-
 include styles
 include scripts
 
@@ -7,8 +6,8 @@ include scripts
     .location
       h3= val.location.name
       a(href=`${val.forecastUrl}`)
-        img(src=`${val.iconUrl}` alt=`${val.weather}`)
-        | #{val.weather}, #{val.temp}
+        img(src=`${val.iconUrl}`, alt=`${val.weather}`)
+        | #{ val.weather }, #{ val.temp }
     small
       | Source:
       a(href='https://openweathermap.org') OpenWeatherMap
