@@ -1,0 +1,23 @@
+extends layouts/layout
+
+block layout-content
+  .container
+    .row
+      .formContainer
+        form.form-horizontal.newsletterForm.col.s12(
+          role='form',
+          action='/notify-me-when-in-season-process',
+          method='POST'
+        )
+          input(type='hidden', name='sku', value=`${sku}`)
+          .row
+            .input-field.col.s12
+              input#fieldEmail.validate(
+                type='email',
+                required='',
+                name='email'
+              )
+              label(for='fieldEmail') Email
+          button.btn.waves-effect.waves-light(type='submit')
+            | Submit
+            i.material-icons.right send

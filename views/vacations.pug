@@ -1,28 +1,25 @@
 extends layouts/layout
 
 block layout-content
-  h1 Vacations
-  each vacation in context.vacations
-    .vacation
-      h3= vacation.name
-      p= vacation.description
-      if vacation.inSeason
-        span.price= vacation.price
-        a.btn.btn-default(href=`/cart/add?sku=${vacation.sku}`) Buy Now!
-      else
-        span.outOfSeason
-          | We&apos;re sorry, this vacation is currently
-          | not in season.
-          a(href=`/notify-me-when-in-season?sku=${vacation.sku}`)
-            | Notify me when
-            | this vacation is in season.
-      hr
-    //- p
-    //-   | Currency:
-    //-   a.currency(href='/set-currency/USD', class='{{ currencyUSD }}') USD
-    //-   |
-    //-   | |
-    //-   a.currency(href='/set-currency/GBP', class='{{ currencyGBP }}') GBP
-    //-   |
-    //-   | |
-    //-   a.currency(href='/set-currency/BTC', class='{{ currencyBTC }}') BTC
+  .container
+    h1 Vacations
+    each vacation in context.vacations
+      .vacation
+        h3= vacation.name
+        p= vacation.description
+          if vacation.inSeason
+            span.price= ` ${vacation.price} `
+            a.btn.btn-default(href=`/cart/add?sku=${vacation.sku}`) Buy Now!
+          else
+            span.outOfSeason!= ' We&apos;re sorry, this vacation is currently not in season. '
+            a(href=`/notify-me-when-in-season?sku=${vacation.sku}`) Notify me when this vacation is in season.
+        hr
+        p
+          = 'Currency: '
+          a.currency(href='/set-currency/USD', class=`${ vacation.currencyUSD }`) USD
+          |
+          = ' | '
+          a.currency(href='/set-currency/GBP', class=`${ vacation.currencyGBP }`) GBP
+          |
+          = ' | '
+          a.currency(href='/set-currency/BTC', class=`${ vacation.currencyBTC }`) BTC

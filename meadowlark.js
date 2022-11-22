@@ -5,6 +5,7 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const fs = require('fs');
+const cors = require('cors');
 
 //производят парсинг тела запроса, закодированного с помощью multipart/form-data.
 const multiparty = require('multiparty');
@@ -21,26 +22,28 @@ require('./db');
 
 const app = express();
 
-Sentry.init({
-  dsn: credentials.sentry.dsn,
-  integrations: [
-    // enable HTTP calls tracing
-    new Sentry.Integrations.Http({ tracing: true }),
-    // enable Express.js middleware tracing
-    new Tracing.Integrations.Express({ app }),
-  ],
+// ======> Tracing
+// Sentry.init({
+//   dsn: credentials.sentry.dsn,
+//   integrations: [
+//     // enable HTTP calls tracing
+//     new Sentry.Integrations.Http({ tracing: true }),
+//     // enable Express.js middleware tracing
+//     new Tracing.Integrations.Express({ app }),
+//   ],
 
-  // Set tracesSampleRate to 1.0 to capture 100%
-  // of transactions for performance monitoring.
-  // We recommend adjusting this value in production
-  tracesSampleRate: 1.0,
-});
+//   // Set tracesSampleRate to 1.0 to capture 100%
+//   // of transactions for performance monitoring.
+//   // We recommend adjusting this value in production
+//   tracesSampleRate: 1.0,
+// });
 
-// RequestHandler creates a separate execution context using domains, so that every
-// transaction/span/breadcrumb is attached to its own Hub instance
-app.use(Sentry.Handlers.requestHandler());
-// TracingHandler creates a trace for every incoming request
-app.use(Sentry.Handlers.tracingHandler());
+// // RequestHandler creates a separate execution context using domains, so that every
+// // transaction/span/breadcrumb is attached to its own Hub instance
+// app.use(Sentry.Handlers.requestHandler());
+// // TracingHandler creates a trace for every incoming request
+// app.use(Sentry.Handlers.tracingHandler());
+// Tracing END <======
 
 switch (app.get('env')) {
   case 'development':
@@ -79,6 +82,7 @@ app.use(
 app.use(express.static(path.join(__dirname, '/public')));
 app.use(weatherMiddlware);
 app.use(flashMiddleware);
+app.use('/api', cors());
 
 const port = process.env.PORT || 8000;
 
@@ -119,7 +123,25 @@ app.get('/cart/checkout', handlers.cartChekout);
 
 app.get('/vacations', handlers.listVacations);
 
+app.get('/notify-me-when-in-season', handlers.notifyWhenInSeasonForm);
+
+app.post(
+  '/notify-me-when-in-season-process',
+  handlers.notifyWhenInSeasonProcess
+);
+
 //app.use(Sentry.Handlers.errorHandler());
+
+// api
+const vhost = require('vhost');
+app.get('/', vhost('api.*', handlers.getVacationsApi));
+app.get('/api/vacations', handlers.getVacationsApi);
+app.get('/api/vacation/:sku', handlers.getVacationBySkuApi);
+app.post(
+  '/api/vacation/:sku/notify-when-in-season',
+  handlers.addVacationInSeasonListenerApi
+);
+app.delete('/api/vacation/:sku', handlers.requestDeleteVacationApi);
 
 // custom 404 page
 app.use(handlers.notFound);
